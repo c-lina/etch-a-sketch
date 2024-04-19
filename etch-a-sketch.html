@@ -26,6 +26,7 @@
         const container = document.querySelector("#container");
         
         function createGrid(size) {
+            container.innerHTML = " ";
             container.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
             for(let col = 0; col < size; col++) {
                 for(let row = 0; row < size; row++) {
