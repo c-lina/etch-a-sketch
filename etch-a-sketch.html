@@ -7,12 +7,16 @@
     </head>
     <body>
         <h1>Etch a Sketch</h1>
+        <button id="sketch">New Sketch</button>
+        <button id="window">Change size of sketch</button>
         <div id="container"></div>
     </body>
     <style>
+        button {
+            height: 30px;
+        }
         #container {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
             border: solid black;
             width: 700px;
             height:700px;
@@ -20,18 +24,40 @@
     </style>
     <script>
         const container = document.querySelector("#container");
-
-        for(let col = 0; col < 16; col++) {
-            for(let row = 0; row < 16; row++) {
-                const grid = document.createElement("div");
-                grid.setAttribute("class", "sections");
-                grid.setAttribute("id", "row" + (col + 1));
-                grid.addEventListener("mousemove", (event) => {
-                    grid.style.backgroundColor = "black";
-                });
-
-                container.appendChild(grid);
+        
+        function createGrid(size) {
+            container.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+            for(let col = 0; col < size; col++) {
+                for(let row = 0; row < size; row++) {
+                    const grid = document.createElement("div");
+                    grid.setAttribute("class", "sections");
+                    grid.setAttribute("id", "row" + (col + 1));
+                    grid.addEventListener("mousemove", (event) => {
+                        grid.style.backgroundColor = "black";
+                    });
+                    const clearBtn = document.querySelector("#sketch");
+                    clearBtn.addEventListener("click", (event) => {
+                        grid.style.backgroundColor = "white";
+                    });
+                    container.appendChild(grid);
+                }
             }
         }
+
+        createGrid(16);
+
+        const newBtn = document.querySelector("#window");
+        newBtn.addEventListener("click", (event) => {
+            let squares = parseInt(window.prompt("How many squares do you want per side for your new grid?"));
+            if(squares < 1) {
+                alert("Error! That value is too small")
+            }
+            else if(squares > 100) {
+                alert("Error! That value is too large. Please enter a smaller value")
+            }
+            else {
+                createGrid(squares);
+            }
+        });
     </script>
 </html>
