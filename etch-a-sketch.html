@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Etch a Sketch</title>
+    </head>
+    <body>
+        <h1>Etch a Sketch</h1>
+        <div id="container"></div>
+    </body>
+    <style>
+        #container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+            border: solid black;
+        }
+        .sections {
+            padding: 24px;
+        }
+    </style>
+    <script>
+        const container = document.querySelector("#container");
+
+        for(let col = 0; col < 16; col++) {
+            for(let row = 0; row < 16; row++) {
+                const grid = document.createElement("div");
+                grid.setAttribute("class", "sections");
+                grid.setAttribute("id", "row" + (col + 1));
+                grid.addEventListener("mousemove", (event) => {
+                    grid.style.backgroundColor = "black";
+                });
+
+                container.appendChild(grid);
+            }
+        }
+    </script>
+</html>
